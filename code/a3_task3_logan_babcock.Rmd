@@ -5,26 +5,41 @@ date: "October 26, 2021"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+### Introduction 
+This R makrdown document tracks the analysis of urchins data. 
+
+*Data Citation:* Reed, D. 2020. SBC LTER: Reef: Long-term experiment: Kelp removal: Urchin size frequency distribution ver 20. Environmental Data Initiative. https://doi.org/10.6073/pasta/5a1e9ef03aa47bd2225c0bb98a02a63b
+
+```{r setup, include=FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+# attach packages
+library(tidyverse)
+library(lubridate)
+library(here)
+library(janitor)
+
+# read in the data
+urchins <- read_csv(here("data", "urchins.csv"))
+
+# cleaning the data
+
+urchins_clean <- clean_names(urchins)
+
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+### Section 1: Size comparisons of purple and red urchins
+This section compares the sizes of the purple and red urchins, using data from all sites and all treatments. Figure 1 is a histogram visualizing the differences in urchin size distribution based on species. 
+```{r}
+# creating a faceted histogram
+ggplot(data = urchins_clean, aes(x = size)) + # histograms only need one axis
+  geom_histogram(bins = 15) + # making the bin size smaller to better show the data
+  facet_wrap(~ common_name) + # separating the data by urchin type
+  labs(x = "Urchin diameter (cm)", #adding x and y axis labels
+       y = "Urchin count", # adding figure title
+       title = "Urchin size distribution by species (Babcock)",
+       caption = "Figure 1: Histogram showing the distribution of Urchin size measured by diameter in cm. Shown for both purple and red urchin species.") + # adding figure caption
+  theme_minimal() 
+  
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
