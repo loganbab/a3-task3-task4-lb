@@ -50,11 +50,17 @@ ggplot(data = urchins_clean, aes(x = size)) + # histograms only need one axis
 
 urchins_summary <- urchins_clean %>% # start with urchins data
   group_by(common_name) %>% # group by species 
-  summarize(sd(size), mean(size), median(size), n()) %>%  # summary table values wanted
+  summarize(sd(size), mean(size), median(size), n())  # summary table values wanted
+  
+# cleaning up the table by renaming the columns
+
+urchins_table <- urchins_summary %>%
+  rename("Species" = common_name, 
+         "Standard Deviation" = "sd(size)",
+         "Mean Size (cm)" = "mean(size)",
+         "Median Size (cm)" = "median(size)", 
+         "Count" = "n()")
+# making a presentable table 
+kable(urchins_table, caption = "Urchin size statistics by species")
 
 ```
-
-```{r}
-
-```
-
