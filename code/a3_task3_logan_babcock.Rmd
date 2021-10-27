@@ -31,7 +31,7 @@ urchins_clean <- clean_names(urchins)
 ```
 
 ### Section 1: Size comparisons of purple and red urchins
-This section compares the sizes of the purple and red urchins, using data from all sites and all treatments. Figure 1 is a histogram visualizing the differences in urchin size distribution based on species.
+This section compares the sizes of the purple and red urchins, using data from all sites and all treatments. Figure 1 is a histogram visualizing the differences in urchin size distribution based on species. Table 1 contains summary statistics for each species size distribution. 
 ```{r}
 # creating a faceted histogram
 ggplot(data = urchins_clean, aes(x = size)) + # histograms only need one axis
@@ -73,6 +73,26 @@ kable(urchins_table, caption = "Table 1: Urchin size statistics by species", dig
 
 The figure and table above help visualize the distribution of size between the two speices of urchin. The red urchins tend to be larger than the purple urchins, as shown by the larger mean and larger median value. A higher percent of the Purple urchins are below 5cm, where the population of Red urchins are more spread out with a majority around 6cm, as seen in Figure 1. The purple urchin's are on average 2.31 cm smaller than the red urchins, which is a 65% difference. 
 
+### Section 2: Purple Urchin counts by site and year
+This section creates a dataset that contains just purple urchin data, and cleans and organizes that data. Then, this data is used to complete an analysis of purple urchin counts and their trends.
+
+```{r}
+# making the purple_urchins data set
+
+purple_urchins <- urchins_clean %>% # start with original cleaned urchins data set
+  filter(common_name == "Purple Urchin") %>% # only keep purple urchin values
+  mutate(date = ymd(date)) %>% # change class of date column
+  mutate(year = year(date)) %>% # make new colum with only year
+  mutate(site_full = case_when( #make new site columns with full site names
+    site %in% c("NAPL") ~ "Naples Reef",
+    site %in% c("AQUE") ~ "Arroyo Quemado Reef",
+    site %in% c("CARP") ~ "Carpinteria Reef",
+    site %in% c("MOHK") ~ "Mohawk Reef",
+    site %in% c("IVEE") ~ "Isla Vista Reef"
+  ))
+
+
+```
 
 
 
