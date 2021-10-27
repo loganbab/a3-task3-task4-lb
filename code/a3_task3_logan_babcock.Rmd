@@ -95,7 +95,7 @@ purple_urchins <- urchins_clean %>% # start with original cleaned urchins data s
 
 purple_urchin_site_totals <- purple_urchins %>% #start with purple urchins data
   group_by(site_full, year) %>% 
-  summarise(urchin_count = n())
+  summarise(urchin_count= n())
 
 
 # making a graph showing purple_urchin_site_totals
@@ -113,7 +113,7 @@ ggplot(purple_urchin_site_totals, aes(x = year, y = urchin_count)) +
 
 ```
 
-
+Figure 2 above shows the changes in the population count of purple urchins at each site during the recorded years, from 2001 to 2012. At some sites (Arroyo Quemado Reef and Carpinteria reef) the plots show a decrease in pupulation over time. The change in population could be relfective of the treatment given to the site, the experimental treatment of removing the kelp bed once a year was done to see the impact on population, and it must be taken into account when looking at population trends. External factors inclusing climate change and change in predation present couls also account for population changes over the years. 
 
 
 
