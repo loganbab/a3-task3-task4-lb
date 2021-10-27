@@ -94,9 +94,22 @@ purple_urchins <- urchins_clean %>% # start with original cleaned urchins data s
 # making a table of purple urchins per site per year
 
 purple_urchin_site_totals <- purple_urchins %>% #start with purple urchins data
-  group_by(site_full) %>% 
+  group_by(site_full, year) %>% 
   summarise(urchin_count = n())
 
+
+# making a graph showing purple_urchin_site_totals
+
+ggplot(purple_urchin_site_totals, aes(x = year, y = urchin_count)) +
+  geom_col() +
+  facet_wrap("site_full") +
+  labs(x = "Year", 
+       y = "Total urchin count", 
+       title = "Count of Purple Urchins per site from 2001-2012 (Babcock)",
+       caption = "Figure 2: Bar charts show the number of purple urchins recorded for each site over the sampling period from 2001-2012.") +
+  theme(axis.text.x = element_text(angle = 45, size = 8)) +
+  theme_light()
+  
 
 ```
 
