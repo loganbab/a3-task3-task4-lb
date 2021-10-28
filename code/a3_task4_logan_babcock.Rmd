@@ -19,7 +19,6 @@ library(tidyverse)
 library(lubridate)
 library(here)
 library(janitor)
-library(effsize)
 
 # read in data
 
@@ -37,12 +36,23 @@ purple_urchins_clean <- clean_names(urchins)
 purple_urchins_clean %>% 
   mutate(date_new = ymd(date)) %>%  # change the date class and remove old column
   mutate(year = year(date_new)) %>% # new colum with only the year
-  filter(common_name == "Purple Urchin", year == 2010, site == "NAPL") %>% # keep purple urhins for NAPL site in 2010
-  mutate(site = case_when( #make new site columns with full site names
-    site %in% c("NAPL") ~ "Naples Reef"
+  filter(common_name == "Purple Urchin", year == 2010, site == "NAPL") # keep purple urchins for NAPL site in 2010
 
+```
+```{r}
+ # making a exploratory graphs
 
+# exploratory histogram
 
+ggplot(purple_urchins_clean, aes(x = size)) +
+  geom_histogram(bins = 15) +
+  facet_wrap("treatment")
 
+# exploratory qq plot
+
+ggplot(purple_urchins_clean, aes(sample = size)) +
+  geom_qq() +
+  facet_wrap(~treatment)
+ 
 ```
 
