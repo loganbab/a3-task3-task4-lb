@@ -11,7 +11,7 @@ This is the code for the analysis of urchin size data taken from various sites f
 *Data Citation:* Reed, D. 2020. SBC LTER: Reef: Long-term experiment: Kelp removal: Urchin size frequency distribution ver 20. Environmental Data Initiative. https://doi.org/10.6073/pasta/5a1e9ef03aa47bd2225c0bb98a02a63b
 
 ```{r setup, include=FALSE, message = FALSE, warning = FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
 # attach packages
 
@@ -41,7 +41,7 @@ purple_urchins_clean %>%
 
 ```
 ### Exploring the data
-here we use exploratory (informal and informational) graphs to explore the distribution of the data, and make observations about trends that are revealed. 
+Here we use exploratory (informal and informational) graphs to explore the distribution of the data, and make observations about trends that are revealed. 
 ```{r}
  # making a exploratory graphs
 
@@ -78,4 +78,4 @@ purple_urchins_stats <- purple_urchins_clean %>%
 
 kable(purple_urchins_stats, caption = "Table 1: Statistics on Purple Urchin Size by treatment at Naples Reef site", digits = 3, align = "c")
 ```
-
+### End task
