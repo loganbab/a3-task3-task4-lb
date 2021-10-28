@@ -19,7 +19,7 @@ library(tidyverse)
 library(lubridate)
 library(here)
 library(janitor)
-
+library(kableExtra)
 # read in data
 
 urchins <- read.csv(here("data", "urchins.csv"))
@@ -72,11 +72,10 @@ purple_urchins_stats <- purple_urchins_clean %>%
   summarize( # summarizing main data points
     mean_size = mean(size),
     sd_size = sd(size),
-    sample_size = n(),
-  )
+    sample_size = n())
 
 # finalizing stats table
 
-kable(purple_urchins_stats, caption = "Table 1: Statistics on Purple Urchin Size by treatment at Naples Reef site")
+kable(purple_urchins_stats, caption = "Table 1: Statistics on Purple Urchin Size by treatment at Naples Reef site", digits = 3, align = "c")
 ```
 
