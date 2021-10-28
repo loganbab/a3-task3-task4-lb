@@ -1,0 +1,48 @@
+---
+title: "a3_task4_logan_babcock.Rmd"
+author: "Logan Babcock"
+date: "10/27/2021"
+output: html_document
+---
+
+### Introduction
+This is the code for the analysis of urchin size data taken from various sites from 2001-2012, but here we are specifically looking at data for the 2010 Naples Reef treatment site for the Purple Urchin Species. 
+
+*Data Citation:* Reed, D. 2020. SBC LTER: Reef: Long-term experiment: Kelp removal: Urchin size frequency distribution ver 20. Environmental Data Initiative. https://doi.org/10.6073/pasta/5a1e9ef03aa47bd2225c0bb98a02a63b
+
+```{r setup, include=FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+# attach packages
+
+library(tidyverse)
+library(lubridate)
+library(here)
+library(janitor)
+library(effsize)
+
+# read in data
+
+urchins <- read.csv(here("data", "urchins.csv"))
+
+```
+
+```{r}
+# wranging the data
+
+# cleaning urchins and changing date class
+
+purple_urchins_clean <- clean_names(urchins)
+
+purple_urchins_clean %>% 
+  mutate(date_new = ymd(date)) %>%  # change the date class and remove old column
+  mutate(year = year(date_new)) %>% # new colum with only the year
+  filter(common_name == "Purple Urchin", year == 2010, site == "NAPL") %>% # keep purple urhins for NAPL site in 2010
+  mutate(site = case_when( #make new site columns with full site names
+    site %in% c("NAPL") ~ "Naples Reef"
+
+
+
+
+```
+

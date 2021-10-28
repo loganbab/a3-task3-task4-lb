@@ -66,7 +66,6 @@ urchins_table <- urchins_summary %>%
 
 kable(urchins_table, caption = "Table 1: Urchin size statistics by species", digits = 2, align = "c")
 
-4.47-6.78
 
 
 ```
@@ -95,19 +94,18 @@ purple_urchins <- urchins_clean %>% # start with original cleaned urchins data s
 
 purple_urchin_site_totals <- purple_urchins %>% #start with purple urchins data
   group_by(site_full, year) %>% 
-  summarise(urchin_count= n())
+  summarise(urchin_count = n())
 
 
 # making a graph showing purple_urchin_site_totals
 
 ggplot(purple_urchin_site_totals, aes(x = year, y = urchin_count)) +
   geom_col() +
-  facet_wrap("site_full") +
+  facet_wrap("site_full") + # having all the sites be included separately 
   labs(x = "Year", 
        y = "Total urchin count", 
        title = "Count of Purple Urchins per site from 2001-2012 (Babcock)",
        caption = "Figure 2: Bar charts show the number of purple urchins recorded for each site over the sampling period from 2001-2012.") +
-  theme(axis.text.x = element_text(angle = 45, size = 8)) +
   theme_light()
   
 
