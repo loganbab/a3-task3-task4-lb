@@ -2,7 +2,9 @@
 title: "a3_task4_logan_babcock.Rmd"
 author: "Logan Babcock"
 date: "10/27/2021"
-output: html_document
+output: 
+  html_document:
+  code_folding: hide
 ---
 
 ### Introduction
@@ -11,7 +13,7 @@ This is the code for the analysis of urchin size data taken from various sites f
 *Data Citation:* Reed, D. 2020. SBC LTER: Reef: Long-term experiment: Kelp removal: Urchin size frequency distribution ver 20. Environmental Data Initiative. https://doi.org/10.6073/pasta/5a1e9ef03aa47bd2225c0bb98a02a63b
 
 ```{r setup, include=FALSE, message = FALSE, warning = FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 # attach packages
 
@@ -20,18 +22,18 @@ library(lubridate)
 library(here)
 library(janitor)
 library(kableExtra)
-# read in data
 
+# read in data
 urchins <- read.csv(here("data", "urchins.csv"))
+
 
 ```
 ### Wrangling the data
 Code for organizing the data and making analysis easier.
-```{r}
+```{r include = FALSE}
 # wranging the data
 
 # cleaning urchins and changing date class
-
 purple_urchins_clean <- clean_names(urchins)
 
 purple_urchins_clean %>% 
@@ -60,6 +62,8 @@ ggplot(purple_urchins_clean, aes(sample = size)) + # making the qq plot based on
 ggplot(purple_urchins_clean, aes(sample = size)) + # making the qq plot based on urchin size, with both populations considered together
   geom_qq()
 ```
+
+#### Exploratory data analysis
 This histogram shows us that the distributions are relatively similar, with the majority of sizes falling between 2 and 7 centimeters. The qqplot shows a straight line when both sets of data came from the normal distributions, comparing each set of data to see if they are from the same distribution. Here, the line is lower at the beginning of the graph, and slightly tapers off towards the end on the right side, this means that the distributions likely peaked in the middle compared to a normal-curve distribution. However, this trend is seen in both treatments of urchin population, meaning that each population likely follows this distribution.
 
 ### Summary Table
@@ -74,8 +78,14 @@ purple_urchins_stats <- purple_urchins_clean %>%
     sd_size = sd(size),
     sample_size = n())
 
+final_stats <- purple_urchins_stats %>%
+  rename("Mean Size(cm)" = mean_size, # rename colums for clarity
+         "Standard Deviation" = sd_size,
+         "Sample Size" = sample_size)
+
 # finalizing stats table
 
-kable(purple_urchins_stats, caption = "Table 1: Statistics on Purple Urchin Size by treatment at Naples Reef site", digits = 3, align = "c")
+kable(final_stats, caption = "Table 1: Statistics on Purple Urchin Size by treatment at Naples Reef site", digits = 3, align = "c") # making table tidy and editing sig figs
+
 ```
 ### End task
