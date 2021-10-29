@@ -35,13 +35,14 @@ This section compares the sizes of the purple and red urchins, using data from a
 ```{r}
 # creating a faceted histogram
 ggplot(data = urchins_clean, aes(x = size)) + # histograms only need one axis
-  geom_histogram(bins = 15) + # making the bin size smaller to better show the data
+  geom_histogram(bins = 15, aes(fill= common_name)) + # making the bin size smaller to better show the data
   facet_wrap(~ common_name) + # separating the data by urchin type
   labs(x = "Urchin diameter (cm)", #adding x and y axis labels
        y = "Urchin count", # adding figure title
        title = "Urchin size distribution by species (Babcock)",
        caption = "Figure 1: Histogram showing the distribution of Urchin size measured by diameter in cm. Shown for both purple and red urchin species.") + # adding figure caption
-  theme_minimal() 
+  theme_minimal()+
+  theme(legend.title = element_blank())
   
 ```
 
@@ -64,7 +65,9 @@ urchins_table <- urchins_summary %>%
 
 # making a presentable table with limited significant figures
 
-kable(urchins_table, caption = "Table 1: Urchin size statistics by species", digits = 2, align = "c")
+kable(urchins_table, caption = "Table 1: Urchin size statistics by species", digits = 2, align = "c") %>% 
+  kable_styling(bootstrap_options = "bordered", 
+                full_width = F, position = "center")
 
 
 
@@ -100,19 +103,23 @@ purple_urchin_site_totals <- purple_urchins %>% #start with purple urchins data
 # making a graph showing purple_urchin_site_totals
 
 ggplot(purple_urchin_site_totals, aes(x = year, y = urchin_count)) +
-  geom_col() +
+  geom_col(aes(fill= factor(site_full))) +
   facet_wrap("site_full") + # having all the sites be included separately 
   labs(x = "Year", 
        y = "Total urchin count", 
        title = "Count of Purple Urchins per site from 2001-2012 (Babcock)",
-       caption = "Figure 2: Bar charts show the number of purple urchins recorded for each site over the sampling period from 2001-2012.") +
-  theme_light()
+       caption = "Figure 2: Bar charts show the number of purple urchins recorded for each site over the sampling period from 2001-2012.", 
+       legend = "Legend") +
+  scale_x_continuous(limits=c(2007,2020)) +
+  theme_light() +
+  theme(legend.title = element_blank())
   
 
 ```
 
 Figure 2 above shows the changes in the population count of purple urchins at each site during the recorded years, from 2001 to 2012. At some sites (Arroyo Quemado Reef and Carpinteria reef) the plots show a decrease in pupulation over time. The change in population could be relfective of the treatment given to the site, the experimental treatment of removing the kelp bed once a year was done to see the impact on population, and it must be taken into account when looking at population trends. External factors inclusing climate change and change in predation present couls also account for population changes over the years. 
 
+### End Task
 
 
 
