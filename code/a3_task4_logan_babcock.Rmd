@@ -2,9 +2,7 @@
 title: "a3_task4_logan_babcock.Rmd"
 author: "Logan Babcock"
 date: "10/27/2021"
-output: 
-  html_document:
-  code_folding: hide
+output:  html_document
 ---
 
 ### Introduction
@@ -28,7 +26,7 @@ urchins <- read.csv(here("data", "urchins.csv"))
 
 
 ```
-### Wrangling the data
+### Wrangling the data: Using mutate and filter functions
 Code for organizing the data and making analysis easier.
 ```{r include = FALSE}
 # wranging the data
@@ -42,7 +40,7 @@ purple_urchins_clean %>%
   filter(common_name == "Purple Urchin", year == 2010, site == "NAPL") # keep purple urchins for NAPL site in 2010
 
 ```
-### Exploring the data
+### Exploring the data: Using exploratory graphs
 Here we use exploratory (informal and informational) graphs to explore the distribution of the data, and make observations about trends that are revealed. 
 ```{r}
  # making a exploratory graphs
@@ -63,10 +61,10 @@ ggplot(purple_urchins_clean, aes(sample = size)) + # making the qq plot based on
   geom_qq()
 ```
 
-#### Exploratory data analysis
-This histogram shows us that the distributions are relatively similar, with the majority of sizes falling between 2 and 7 centimeters. The qqplot shows a straight line when both sets of data came from the normal distributions, comparing each set of data to see if they are from the same distribution. Here, the line is lower at the beginning of the graph, and slightly tapers off towards the end on the right side, this means that the distributions likely peaked in the middle compared to a normal-curve distribution. However, this trend is seen in both treatments of urchin population, meaning that each population likely follows this distribution.
+#### Exploratory graphs analysis
+This histogram shows us that the distributions are relatively similar, with the majority of sizes falling between 2 and 7 centimeters. The qqplot shows a straight line when both sets of data came from the normal distributions, comparing each set of data to see if they are from the same distribution. Here, the line is lower at the beginning of the graph, and slightly tapers off towards the end on the right side. This means that the distributions likely peaked in the middle compared to a normal-curve distribution. However, this trend is seen in both treatments of urchin population, meaning that each population likely follows this distribution.
 
-### Summary Table
+### Summary Table of Purple Urchin Population Statistics
 Summary statistics on the Purple Urchins using code to generate a table.
 
 ```{r}
